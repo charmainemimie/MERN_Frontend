@@ -4,6 +4,7 @@ import WorkoutDetails from "../components/WorkoutDetails";
 
 
 import { BACKEND_URL, LOCAL_BACKEND_URL } from "../urls";
+import WorkoutsForm from "../components/WorkoutsForm";
 const Home = () => {
 
   const [workouts, setWorkouts] = useState(null);
@@ -31,7 +32,7 @@ const Home = () => {
           <WorkoutDetails key={workout.id} workout={workout}/>
         ))}
       </div>
-      <div></div>
+      <div className="m-4"><WorkoutsForm/></div>
     </div>
   )
 }
