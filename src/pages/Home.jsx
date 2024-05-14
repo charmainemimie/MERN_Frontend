@@ -1,5 +1,8 @@
 import { useEffect,useState } from "react"
 import Axios from 'axios'
+import WorkoutDetails from "../components/WorkoutDetails";
+
+
 import { BACKEND_URL, LOCAL_BACKEND_URL } from "../urls";
 const Home = () => {
 
@@ -21,12 +24,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap 6">
+    
+      <div className="col-span-1 lg:col-span-2">
         {workouts && workouts.map((workout)=>(
-            <p key={workout.id}>{workout.title}</p>
+          <WorkoutDetails key={workout.id} workout={workout}/>
         ))}
       </div>
+      <div></div>
     </div>
   )
 }
