@@ -21,6 +21,17 @@ const useWorkoutStore = create((set) => ({
       throw error;
     }
   },
+  deleteWorkout: async (workoutId) => {
+    try {
+      await Axios.delete(`${BACKEND_URL}/${workoutId}`);
+      set((state) => ({
+        workouts: state.workouts.filter((workout) => workout._id !== workoutId),
+      }));
+    } catch (error) {
+      console.error('Error deleting workout:', error);
+      throw error;
+    }
+  },
 }));
 
 export default useWorkoutStore;

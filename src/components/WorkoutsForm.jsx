@@ -5,6 +5,8 @@ const WorkoutsForm = () => {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null)
+  
+  //from zustand
   const { addWorkout } = useWorkoutStore();
 
   const handleSubmit = async (e) => {
