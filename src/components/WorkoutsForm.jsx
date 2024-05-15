@@ -1,29 +1,28 @@
 import { useState } from "react";
-import Axios from "axios";
-import { BACKEND_URL, LOCAL_BACKEND_URL } from "../urls";
+import useWorkoutStore from "../../zustand/workoutStore";
 const WorkoutsForm = () => {
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
+  const [error, setError] = useState(null)
+  const { addWorkout } = useWorkoutStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const workout = { title, reps, load };
 
-    Axios.post(BACKEND_URL, 
-        workout
-)
-      .then((response) => {
-        console.log("Response:", response.data);
-        alert("Workout added")
-        setTitle('')
-        setLoad('')
-        setReps('')
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    try {
+      await addWorkout(workout);
+      alert('Workout added');
+      setTitle('');
+      setLoad('');
+      setReps('');
+      setError(null);
+    } catch (error) {
+      console.error('Error:', error);
+      setError(error.message);
+    }
   };
 
   return (
@@ -43,6 +42,7 @@ const WorkoutsForm = () => {
               }}
               value={title}
               className="border rounded-md py-2 px-2 w-full "
+              required
             />
           </label>
         </div>
@@ -60,6 +60,7 @@ const WorkoutsForm = () => {
               }}
               value={load}
               className="border rounded-md py-2 px-2 w-full max-w-full"
+              required
             />
           </label>
         </div>
@@ -77,6 +78,7 @@ const WorkoutsForm = () => {
               }}
               value={reps}
               className="border rounded-md py-2 px-2 w-full max-w-full"
+              required
             />
           </label>
         </div>
@@ -87,6 +89,8 @@ const WorkoutsForm = () => {
         >
           Add workout
         </button>
+
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   );
