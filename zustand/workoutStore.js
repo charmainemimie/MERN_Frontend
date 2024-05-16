@@ -32,6 +32,19 @@ const useWorkoutStore = create((set) => ({
       throw error;
     }
   },
+  editWorkout: async (updatedWorkout) => {
+    try {
+      await Axios.put(`${BACKEND_URL}/${updatedWorkout._id}`, updatedWorkout);
+      set((state) => ({
+        workouts: state.workouts.map((workout) =>
+          workout._id === updatedWorkout._id ? updatedWorkout : workout
+        ),
+      }));
+    } catch (error) {
+      console.error('Error editing workout:', error);
+      throw error;
+    }
+  },
 }));
 
 export default useWorkoutStore;

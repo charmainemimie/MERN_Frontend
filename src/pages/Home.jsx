@@ -30,15 +30,19 @@ const Home = () => {
 
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap 6">
-    
-      <div className="col-span-2">
-        {workouts && workouts.map((workout)=>(
-          <WorkoutDetails key={workout.id} workout={workout}/>
-        ))}
-      </div>
-      <div className="m-4"><WorkoutsForm/></div>
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div className="col-span-1 lg:col-span-2">
+    {workouts && workouts.map((workout) => (
+      <WorkoutDetails key={workout.id} workout={workout}/>
+    ))}
+  </div>
+  <div className="p-4 ">
+    <div className="max-w-xl mx-auto"> {/* Set a maximum width */}
+      <WorkoutsForm/>
     </div>
+  </div>
+</div>
+
   )
 }
 
